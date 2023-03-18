@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "328f2107-4c23-4aba-9a73-79cf4436f244"
+      }
+    },
+    "owner": "sergioromero_hd"
   }
 }

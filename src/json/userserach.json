@@ -1,0 +1,14 @@
+{
+    "data": [
+      {
+        "platformId": 3,
+        "platformSlug": "steam",
+        "platformUserIdentifier": "76561198881960348",
+        "platformUserId": "76561198881960348",
+        "platformUserHandle": "Gamehag.com",
+        "avatarUrl": "https://avatars.akamai.steamstatic.com/bb85f00e3e0fb1bfece6294c818219501bf6aade_full.jpg",
+        "status": null,
+        "additionalParameters": null
+      }
+    ]
+  }
