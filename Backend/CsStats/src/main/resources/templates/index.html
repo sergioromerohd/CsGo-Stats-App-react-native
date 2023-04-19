@@ -1,0 +1,469 @@
+<!--
+ API Documentation HTML Template  - 1.0.1
+ Copyright © 2016 Florian Nicolas
+ Licensed under the MIT license.
+ https://github.com/ticlekiwi/API-Documentation-HTML-Template
+ !-->
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>API - Cs2 Stats</title>
+    <meta name="description" content="">
+    <meta name="author" content="ticlekiwi">
+
+    <meta http-equiv="cleartype" content="on">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/hightlightjs-dark.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300&family=Source+Code+Pro:wght@300&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" media="all">
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body>
+    <div class="left-menu">
+        <div class="content-logo">
+            <div class="logo">
+                <img alt="Cs2 Logo by sergioromero"
+                    title="Cs2 Logo by sergioromero" src="images/logo.png" height="100%" />
+                <span>CS2 Stats DOCS</span>
+            </div>
+            <button class="burger-menu-icon" id="button-menu-mobile">
+                <svg width="34" height="34" viewBox="0 0 100 100">
+                    <path class="line line1"
+                        d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058">
+                    </path>
+                    <path class="line line2" d="M 20,50 H 80"></path>
+                    <path class="line line3"
+                        d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-menu-closer"></div>
+        <div class="content-menu">
+            <div class="content-infos">
+                <div class="info"><b>Version:</b> Beta :/</div>
+                <div class="info"><b>Last Updated:</b> 18th apr, 2023</div>
+            </div>
+            <ul>
+                <li class="scroll-to-link active" data-target="content-get-started">
+                    <a>ABOUT</a>
+                </li>
+                <li class="scroll-to-link" data-target="content-post-user">
+                    <a>Post Users</a>
+                </li>
+                <li class="scroll-to-link" data-target="content-post-mainstats">
+                    <a>Post MainStats</a>
+                </li>
+                <li class="scroll-to-link" data-target="content-errors">
+                    <a>Errors</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content-page">
+        <div class="content-code"></div>
+        <div class="content">
+            <div class="overflow-hidden content-section" id="content-get-started">
+                <h1>Get started</h1>
+                <pre>
+    API Endpoint
+
+            http://localhost:8080
+                </pre>
+                <p>
+                    Cs2 Stats is the application that will allow you to review, compare, and analyze the competitive
+                    match statistics of all CS players. You can also advance in the rankings and explore inventories.
+                </p>
+                <p>
+                    This API is <strong>free</strong> to use, by the moment it still being accesible from inside the
+                    app, more <strong>comming soon</strong>.
+                </p>
+            </div>
+            <div class="overflow-hidden content-section" id="content-post-user">
+                <h2>Post Users</h2>
+                <pre><code class="bash">
+# Here is a curl example
+curl \
+-X POST http://192.168.1.102:8080/user \
+-H 'Content-Type: application/json'
+-d '{"login":"my_login",}'
+                </code></pre>
+                <p>
+                    To post users you need to make a POST call to the following url :<br>
+                    <code class="higlighted break-word">http://192.168.1.102:8080/user</code><br>
+                    The body of the request must be a JSON object with the following fields :
+                </p>
+                <br>
+                <pre><code class="json">
+Result example :
+
+{
+  query:{
+    offset: 0,
+    limit: 50,
+    house: [
+      "Stark",
+      "Bolton"
+    ],
+  }
+  result: [
+    {
+      id: 1,
+      first_name: "Jon",
+      last_name: "Snow",
+      alive: true,
+      house: "Stark",
+      gender: "m",
+      age: 14,
+      location: "Winterfell"
+    },
+  ]
+}
+                </code></pre>
+                <h4>QUERY PARAMETERS</h4>
+                <table class="central-overflow-x">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>additionalParameters</td>
+                            <td>String</td>
+                            <td>Extra info, only use for backend, not saving</td>
+                        </tr>
+                        <tr>
+                            <td>avatarUrl</td>
+                            <td>String</td>
+                            <td>Avatar ULR for steam logo</td>
+                        </tr>
+                        <tr>
+                            <td>platformSlug</td>
+                            <td>String</td>
+                            <td>
+                                plataform sllugh from steam, only use for backend, not saving.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>platformUserHandle</td>
+                            <td>String</td>
+                            <td>
+                                User name, used to be something human understranding
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>platformUserId</td>
+                            <td>String</td>
+                            <td>
+                                User id, steam id64
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>platformUserIdentifier</td>
+                            <td>String</td>
+                            <td>
+                                If steam, its the same as platformUserId
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="overflow-hidden content-section" id="content-post-mainstats">
+                <h2>Post MainStats</h2>
+                <pre><code class="bash">
+# Here is a curl example
+curl \
+-X POST http://192.168.1.102:8080/stats
+-H 'Content-Type: application/json'
+-d '{"login":"my_login",}'
+                </code></pre>
+                <p>
+                    To post mainstats you need to make a POST call to the following url :<br>
+                    <code class="higlighted break-word">http://192.168.1.102:8080/stats</code><br>
+                    The body of the request must be a JSON object with the following fields :
+                </p>
+                <br>
+                <pre><code class="json">
+Result example :
+
+{
+    query:{
+        offset: 0,
+        limit: 50,
+        house: [
+
+        ]
+    }
+}
+                </code></pre>
+                <h4>QUERY PARAMETERS</h4>
+                <table class="central-overflow-x">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>id_usuario</td>
+                            <td>String</td>
+                            <td>Steam id64 for db relation with users</td>
+                        </tr>
+                        <tr>
+                            <td>timePlayedValue</td>
+                            <td>String</td>
+                            <td>User Time Played</td>
+                        </tr>
+                        <tr>
+                            <td>scoreValue</td>
+                            <td>String</td>
+                            <td>
+                                user global score value un MM
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>kills</td>
+                            <td>String</td>
+                            <td>
+                                User Kills
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>deaths</td>
+                            <td>String</td>
+                            <td>
+                                User Deaths
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>kd</td>
+                            <td>String</td>
+                            <td>
+                                Kills/deaths
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>damage</td>
+                            <td>String</td>
+                            <td>
+                                user total damage
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>headshosts</td>
+                            <td>String</td>
+                            <td>
+                                User Headshots
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>dominations</td>
+                            <td>String</td>
+                            <td>
+                                User Dominations
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>shotsFired</td>
+                            <td>String</td>
+                            <td>
+                                User Shots Fired
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>shotsHit</td>
+                            <td>String</td>
+                            <td>
+                                User Shots Hit
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>shotsAccuracy</td>
+                            <td>String</td>
+                            <td>
+                                User Shots Accuracy
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>snipersKilled</td>
+                            <td>String</td>
+                            <td>
+                                User Snipers Killed
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>dominationOverkills</td>
+                            <td>String</td>
+                            <td>
+                                User Domination Overkills
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>dominationRevenges</td>
+                            <td>String</td>
+                            <td>
+                                User Domination Revenges
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>bombsPlanted</td>
+                            <td>String</td>
+                            <td>
+                                User Bombs Planted
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>bombsDefused</td>
+                            <td>String</td>
+                            <td>
+                                User Bombs Defused
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>moneyEarned</td>
+                            <td>String</td>
+                            <td>
+                                User Money Earned
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>hostagesRescued</td>
+                            <td>String</td>
+                            <td>
+                                User Hostages Rescued
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>mvp</td>
+                            <td>String</td>
+                            <td>
+                                User MVPs
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>wins</td>
+                            <td>String</td>
+                            <td>
+                                Total Wins
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ties</td>
+                            <td>String</td>
+                            <td>
+                                Total Ties
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>matchesPlayed</td>
+                            <td>String</td>
+                            <td>
+                                Total Matches Played
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>losses</td>
+                            <td>String</td>
+                            <td>
+                                Total Losses
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>roundsPlayed</td>
+                            <td>String</td>
+                            <td>
+                                Total Rounds Played
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>roundsWon</td>
+                            <td>String</td>
+                            <td>
+                                Total Rounds Won
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>wlPercentage</td>
+                            <td>String</td>
+                            <td>
+                                Win/Loss Ratio (%)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>headshotPct</td>
+                            <td>String</td>
+                            <td>
+                                Headshot Percentage (%)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="overflow-hidden content-section" id="content-errors">
+                <h2>Errors</h2>
+                <p>
+                    The Westeros API uses the following error codes:
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Error Code</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>X000</td>
+                            <td>
+                                Some parameters are missing. This error appears when you don't pass every mandatory
+                                parameters.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>X001</td>
+                            <td>
+                                Unknown or unvalid <code class="higlighted">secret_key</code>. This error appears if you
+                                use an unknow API key or if your API key expired.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>X002</td>
+                            <td>
+                                Unvalid <code class="higlighted">secret_key</code> for this domain. This error appears
+                                if you use an API key non specified for your domain. Developper or Universal API keys
+                                doesn't have domain checker.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>X003</td>
+                            <td>
+                                Unknown or unvalid user <code class="higlighted">token</code>. This error appears if you
+                                use an unknow user <code class="higlighted">token</code> or if the user <code
+                                    class="higlighted">token</code> expired.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="content-code"></div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

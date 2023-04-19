@@ -1,56 +1,94 @@
-//react native 
-
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, Pressable, ScrollView, Dimensions } from 'react-native';
 import { useState } from 'react';
-import { useEffect } from 'react';
+import { AntDesign } from '@expo/vector-icons';
+import LottieView from 'lottie-react-native';
 
-import UserProfileCard from '../components/userProfileCard';
+import fetchData from '../api/UserApi';
+import UserBanner from '../Components/UserBanner';
+
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state',
+]);
 
 const Formulario = ({ navigation }) => {
-    //Formulario del usuario en la primera pagina
-
     //state for Input
     const [userName, setUserName] = useState('');
-    const [SearchUser, setSearchUser] = useState(0);
+    //state for data
+    const [data, setData] = useState(null);
+    //sate for loading
+    const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        console.log("Datos busqueda usuario");
-
-    }, [SearchUser]);
-
+    //funcion para hacer fetch a la api al hacer click en el boton
+    const handleButtonPress = async () => {
+        setIsLoading(true);
+        const apiData = await fetchData(userName);
+        setData(apiData);
+        if (apiData === null) {
+            setIsLoading(false);
+        }
+    };
+    //funcion para filtrar los caracteres no deseados
+    const handleTextChange = (newText) => {
+        // Filtra los caracteres no deseados utilizando una expresión regular
+        const filteredText = newText.replace(/[^a-zA-Z0-9 _]/g, '');
+        // Actualiza el valor del componente TextInput solo si el texto es válido
+        setUserName(filteredText);
+    };
     return (
-        <View style={styles.container}>
-            <Text>Steam ID</Text>
-            <TextInput
-                value={userName}
-                onChangeText={(userName) => setUserName(userName)}
-                placeholder={'Steam ID'}
-                style={styles.input}
-            />
-            {
-                userName ?
-                    <Button title="Buscar" style={styles.button} onPress={(SearchUser) =>setSearchUser(SearchUser+1)}>
-                        
-                    </Button> :
-                    <Button style={styles.button} title="Buscar">
-                    </Button>
-            }
-            {
-                SearchUser?
-                <UserProfileCard navigation={navigation} nombre={userName}/>:
-                <Text>no es mayor a 1</Text>
-            }
-        </View >
+        <>
+            <ScrollView style={styles.container}>
+                <View style={styles.align}>
+                    <Text>Steam ID</Text>
+                    <View style={styles.conthoriz}>
+                        <TextInput
+                            value={userName}
+                            onChangeText={handleTextChange}
+                            placeholder={'Steam ID'}
+                            style={styles.input}
+                        />
+                        {userName.length > 0 ?
+                            <Pressable onPress={() => setUserName('') && setData(null) && setIsLoading(false)}>
+                                <AntDesign name="retweet" size={24} color="black" />
+                            </Pressable>
+                            :
+                            <></>
+                        }
+                    </View>
+                    <Pressable style={styles.button} onPress={handleButtonPress}>
+                        <Text style={{ color: "white" }}>Buscar</Text>
+                    </Pressable>
+                    {data ?
+                        <Pressable onPress={() => navigation.navigate('MainStats', {data: { data } })}>
+                            <UserBanner data={data} />
+                        </Pressable>
+                        :
+                        isLoading ? <LottieView style={{
+                            width: 125, height: 125,
+                        }} source={require('../Img/comdomSpin.json')} autoPlay loop />
+                            : <></>}
+                </View>
+            </ScrollView>
+        </>
     );
 };
-
 const styles = StyleSheet.create({
+    align: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 100,
+    },
     container: {
         flex: 1,
+        backgroundColor: '#e8e8e8',
+    },
+    conthoriz: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
         alignItems: 'center',
-        paddingTop: 200,
-        backgroundColor: '#ffffff',
+        justifyContent: 'center',
     },
     input: {
         width: 250,
@@ -58,7 +96,10 @@ const styles = StyleSheet.create({
         padding: 10,
         marginTop: 20,
         marginBottom: 10,
-        backgroundColor: '#e8e8e8'
+        backgroundColor: '#ffffff',
+        borderRadius: 100,
+        borderWidth: 2,
+        borderColor: '#000000',
     },
     button: {
         alignItems: 'center',
