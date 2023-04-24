@@ -1,20 +1,14 @@
 import React from 'react';
-import Constants from 'expo-constants';
-import { StyleSheet } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { FontAwesome } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
-import About from './About';
-import TopUsers from './TopUsers';
-import UserSearch from './UserSearch';
+import MainStats from './MainStats';
 
-const Main = ({ navigation }) => {
+const SearchLanding = (props) => {
 
     const Tab = createMaterialTopTabNavigator();
-
     return (
         <>
             <Tab.Navigator
@@ -24,48 +18,50 @@ const Main = ({ navigation }) => {
                     tabBarStyle: { backgroundColor: '#000000' },
                     tabBarActiveTintColor: '#ffffff',
                     tabBarInactiveTintColor: '#ffffff',
-
+                    tabBarAccessibilityLabel: 'Main',
                 }}
-                initialRouteName="UserSearch"
+                initialRouteName="MainStats"
                 tabBarPosition='bottom'
             >
-                <Tab.Screen name="TopUsers" component={TopUsers} 
+                <Tab.Screen name="Maps"
                     options={{
                         tabBarIndicatorStyle: { backgroundColor: 'red' },
-                        tabBarLabel: 'Top Users',
+                        tabBarLabel: 'Maps',
                         tabBarPressColor: 'darkred',
                         tabBarActiveTintColor: 'lightblue',
                         tabBarIcon: ({ color }) => (
-                            <Ionicons name="ios-people" color={color} size={26} />
+                            <FontAwesome name="map-o" size={24} color="white" />
                         ),
-                        
                     }}
+                    children={() => <></>}
                 />
-                <Tab.Screen name="UserSearch" component={UserSearch} 
+                <Tab.Screen name="MainStats"
                     options={{
                         tabBarIndicatorStyle: { backgroundColor: 'red' },
-                        tabBarLabel: 'Search',
+                        tabBarLabel: 'Main',
                         tabBarPressColor: 'darkred',
                         tabBarActiveTintColor: 'lightblue',
                         tabBarIcon: ({ color }) => (
-                            <Ionicons name="ios-search" color={color} size={26} />
+                            <FontAwesome name="home" size={24} color="white" />
                         ),
                     }}
+                    children={() => <MainStats {...props} />}
                 />
-                <Tab.Screen name="About" component={About}
+                <Tab.Screen name="Weapons"
                     options={{
                         tabBarIndicatorStyle: { backgroundColor: 'red' },
+                        tabBarLabel: 'Weapons',
                         tabBarPressColor: 'darkred',
-                        tabBarLabel: 'About',
                         tabBarActiveTintColor: 'lightblue',
                         tabBarIcon: ({ color }) => (
-                            <Ionicons name="ios-information-circle" color={color} size={26} />
+                            <MaterialCommunityIcons name="pistol" size={24} color="white" />
                         ),
                     }}
+                    children={() => <></>}
                 />
             </Tab.Navigator>
         </>
     );
 };
 
-export default Main;
+export default SearchLanding;

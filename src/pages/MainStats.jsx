@@ -22,7 +22,7 @@ const MainStats = (props) => {
         if (data2 === 0) {
             fetchData(platformUserId).then((data) => {
                 setData(data);
-                //UserPost(data.platformInfo);
+                UserPost(data.platformInfo);
                 MainStatsPost(data)
                 setLoading(false);
                 setData2(1);
@@ -50,7 +50,6 @@ const MainStats = (props) => {
                     <ScrollView style={styles.container}>
                         <Text style={styles.text}>{data.platformInfo.platformUserHandle}</Text>
                     </ScrollView>
-                    <StatsNav navigation={navigation}/>
                 </>
             }
         </>

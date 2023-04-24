@@ -5,31 +5,32 @@ import { AntDesign } from '@expo/vector-icons';
 
 import LandingNav from '../Components/LandinNav';
 import fetchData from '../api/TopUserStats.js';
+import AppBanner from '../Components/AppBaner';
 
-const TopUsers = ({navigation}) => {
+
+const TopUsers = ({ navigation }) => {
 
     const [data, setData] = useState(null);
 
     const fetchDataOnce = async () => {
-            fetchData().then((data) => {
-                setData(data);
-                console.log(data);
-            });
-            };
-        
+        fetchData().then((data) => {
+            setData(data);
+        });
+    };
+
     useEffect(() => {
         fetchDataOnce();
     }, []);
 
     return (
         <>
+            <AppBanner />
             <View style={styles.container}>
                 <Pressable onPress={() => navigation.navigate('Landing')}>
                     <AntDesign name="left" size={24} color="black" />
                 </Pressable>
                 <Text style={styles.text}>Top Users</Text>
             </View>
-            <LandingNav navigation={navigation} />
         </>
     );
 }

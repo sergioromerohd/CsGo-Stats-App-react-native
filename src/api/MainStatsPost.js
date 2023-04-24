@@ -34,7 +34,7 @@ const MainStatsPost = async (stats) => {
         headshotPct: data.headshotPct.displayValue
     };
 
-    fetch('http://localhost/stats', {
+    fetch('http://192.168.1.102:8080/stats', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

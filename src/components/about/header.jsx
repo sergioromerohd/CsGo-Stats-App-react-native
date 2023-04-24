@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import Constants from "expo-constants";
 
 const Header = () => {
     return (
@@ -7,9 +8,9 @@ const Header = () => {
             <View style={styles.header}>
                 <Image source={require('../../Img/logo.png')} style={{ width: 150, height: 70, marginRight: 10, }} />
                 <View>
-                    <Text style={styles.text}>Cs:Go-Stats</Text>
-                    <Text style={styles.text}>Version 1.0.0</Text>
-                    <Text style={{ fontSize: 12 }}>Created by SergioRomero</Text>
+                    <Text style={styles.text}>{Constants.manifest.name}</Text>
+                    <Text style={styles.text}>{Constants.manifest.version}</Text>
+                    <Text style={{ fontSize: 11 }}>Created by {Constants.manifest.owner}</Text>
                 </View>
             </View>
         </>

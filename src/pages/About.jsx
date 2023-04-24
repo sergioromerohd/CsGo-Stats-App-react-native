@@ -7,10 +7,12 @@ import Constants from 'expo-constants';
 import LandingNav from '../Components/LandinNav';
 import LinksAbout from '../Components/about/links';
 import Header from '../Components/about/header';
+import AppBanner from '../Components/AppBaner';
 
 const About = ({ navigation }) => {
     return (
         <>
+            <AppBanner />
             <View style={styles.container}>
                 <Text style={styles.title}>About</Text>
                 <Header />
@@ -20,7 +22,6 @@ const About = ({ navigation }) => {
                     <LinksAbout ico="web-box" text=".com"/>
                 </View>
             </View>
-            <LandingNav navigation={navigation} />
         </>
     );
 }

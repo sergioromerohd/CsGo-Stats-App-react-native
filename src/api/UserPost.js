@@ -8,7 +8,7 @@ const UserPost = async (userinfo) => {
         platformUserId: userinfo.platformUserId,
         platformUserIdentifier: userinfo.platformUserIdentifier,
     };
-    fetch('http://localhost/user', {
+    fetch('http://192.168.1.102:8080/user', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

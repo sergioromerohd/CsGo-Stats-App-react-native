@@ -1,5 +1,5 @@
 const fetchData = async () => {
-    const response = await fetch('http://localhost/topusers',{
+    const response = await fetch('http://192.168.1.102:8080/topusers',{
         method: 'GET',
       });
     const data= await response.json();
