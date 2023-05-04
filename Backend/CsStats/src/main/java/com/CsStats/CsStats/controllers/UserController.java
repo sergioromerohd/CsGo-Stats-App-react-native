@@ -47,7 +47,7 @@ public class UserController {
     
     @GetMapping("/topusers")
     public ResponseEntity<List<StatsUsuarioDTO>> obtenerUsuarios() throws JsonProcessingException {
-        String sql = "SELECT * FROM usuarios u INNER JOIN mainstats s ON u.id = s.id_usuario WHERE s.fecha =( SELECT MAX(fecha) FROM mainstats WHERE id_usuario = u.id ) GROUP BY u.id ORDER BY s.timePlayedValue DESC , s.kd limit 100";
+        String sql = "SELECT ROW_NUMBER() OVER (ORDER BY s.KD DESC) AS numFila, u.*, s.* FROM usuarios u INNER JOIN mainstats s ON u.id = s.id_usuario WHERE s.fecha =(SELECT MAX(fecha) FROM mainstats WHERE id_usuario = u.id ) GROUP BY u.id ORDER BY `numFila` ASC LIMIT 100";
         List<StatsUsuarioDTO> usuarios = jdbcTemplate.query(sql, new UsuarioRowMapper());
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(usuarios);
         };

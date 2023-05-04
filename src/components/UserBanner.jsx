@@ -19,17 +19,17 @@ const UserBanner = ({ data }) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: 275,
-        height: 75,
+        width: '95%',
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'center',
         marginTop: 20,
         borderWidth: 1,
-        borderRadius: 5,
+        borderRadius: 10,
         borderColor: 'black',
-        backgroundColor: 'gray',
-        },
+        backgroundColor: 'white',
+        paddingVertical: 10,
+    },
     image: {
         width: 65,
         height: 65,
@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginLeft: 10,
         color: "#000000",
+        textShadowOffset: { width: 1, height: 1 },
+        textShadowRadius: 1,
+        textShadowColor: 'rgba(150, 0, 0, 0.55)',
+
     },
 });
 

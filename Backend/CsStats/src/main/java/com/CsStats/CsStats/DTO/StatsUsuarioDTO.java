@@ -2,6 +2,7 @@
 package com.CsStats.CsStats.DTO;
 
 public class StatsUsuarioDTO {
+        public String numFila;
         public String id;
         public String user;
         public String avatar;
@@ -39,13 +40,14 @@ public class StatsUsuarioDTO {
         public StatsUsuarioDTO() {
         }
 
-        public StatsUsuarioDTO(String id, String user, String avatar, long statsID, String id_usuario, String timePlayedValue,
+        public StatsUsuarioDTO(String numFila,String id, String user, String avatar, long statsID, String id_usuario, String timePlayedValue,
                         String scoreValue, String kills, String deaths, String kd, String damage, String headshosts,
                         String dominations, String shotsFired, String shotsHit, String shotsAccuracy, String snipersKilled,
                         String dominationOverkills, String dominationRevenges, String bombsPlanted, String bombsDefused,
                         String moneyEarned, String hostagesRescued, String mvp, String wins, String ties,
                         String matchesPlayed, String losses, String roundsPlayed, String roundsWon, String wlPercentage,
                         String headshotPct, String fecha) {
+                this.numFila = numFila;
                 this.id = id;
                 this.user = user;
                 this.avatar = avatar;
@@ -79,6 +81,14 @@ public class StatsUsuarioDTO {
                 this.wlPercentage = wlPercentage;
                 this.headshotPct = headshotPct;
                 this.fecha = fecha;
+        }
+
+        public String getNumFila() {
+                return numFila;
+        }
+
+        public void setNumFila(String numFila) {
+                this.numFila = numFila;
         }
 
         public String getId() {

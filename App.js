@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import About from './src/Pages/About';
 import Landing from './src/Pages/Landing';
-import MainStats from './src/Pages/MainStats';
+import MainStats from './src/Pages/stats/MainStats';
 import TopUsers from './src/Pages/TopUsers';
 import SearchLanding from './src/Pages/SearchLanding';
 
@@ -20,6 +20,7 @@ export default function App() {
       <Stack.Navigator
         initialRouteName="Landing"
         screenOptions={{
+          contentStyle: { backgroundColor: 'black' },
           headerShown: false,
           animationEnabled: false,
           animationTypeForReplace: 'pop',

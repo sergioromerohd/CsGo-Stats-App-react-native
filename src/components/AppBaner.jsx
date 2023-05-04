@@ -21,7 +21,7 @@ const AppBanner = () => {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: Constants.statusBarHeight,
+        marginTop: Constants.statusBarHeight,
         top: 0,
         left: 0,
         right: 0,
@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     text: {
         flex: 1,
         fontSize: 18,
-        fontFamily: 'sans-serif',
         fontWeight: "bold",
         marginLeft: 10,
         color: "white",

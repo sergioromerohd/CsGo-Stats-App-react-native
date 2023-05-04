@@ -11,6 +11,7 @@ public class UsuarioRowMapper implements RowMapper<StatsUsuarioDTO> {
     @Override
     public StatsUsuarioDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
         StatsUsuarioDTO usuario = new StatsUsuarioDTO();
+        usuario.setNumFila(rs.getString("numFila"));
         usuario.setId(rs.getString("id"));
         usuario.setUser(rs.getString("user"));
         usuario.setAvatar(rs.getString("avatar"));
