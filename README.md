@@ -26,5 +26,14 @@ Backend
   2.Get api for TopUsers.
 
   3.Phost user and stats.
+  
+  #Deploy
+  
+  1.create a react native project with expo.
+  2.Clone these repo inside your project.
+  3.install all dependencies in pakage.json
+  4.run /backend/CsStats/ with your favorite IDE/console
+  5 expo start main project 
 
+"You will need to configure the application properties, the DB , and VARS files on backend and app"
 
