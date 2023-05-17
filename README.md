@@ -1,11 +1,11 @@
 # CsGo-Stats-App-react-native
 
-# APP
+### APP
 
 ![logo](https://user-images.githubusercontent.com/62471453/233936008-9aa68baf-52db-454f-9116-58740b9994d7.png)
 
 
-Features:
+# Features:
 
   1.User Steam ID 64 search form
 
