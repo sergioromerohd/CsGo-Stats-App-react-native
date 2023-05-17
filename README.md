@@ -1,6 +1,6 @@
 # CsGo-Stats-App-react-native
 
-#APP
+# APP
 
 ![logo](https://user-images.githubusercontent.com/62471453/233936008-9aa68baf-52db-454f-9116-58740b9994d7.png)
 
@@ -27,12 +27,16 @@ Backend
 
   3.Phost user and stats.
   
-  #Deploy
+  # Deploy
   
   1.create a react native project with expo.
+	
   2.Clone these repo inside your project.
+	
   3.install all dependencies in pakage.json
+	
   4.run /backend/CsStats/ with your favorite IDE/console
+	
   5 expo start main project 
 
 "You will need to configure the application properties, the DB , and VARS files on backend and app"
