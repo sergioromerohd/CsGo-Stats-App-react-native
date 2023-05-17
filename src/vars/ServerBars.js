@@ -1,7 +1,3 @@
-
-
-
-
 global.serverurl="http://192.168.1.102:"//todo portatil
 //global.serverurl="http://*****:"//portatil Puertos
 //global.serverurl="http://*****/:"//Pc puertos
