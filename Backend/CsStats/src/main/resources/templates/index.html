@@ -81,14 +81,14 @@
                 <pre>
     API Endpoint
 
-            http://localhost:8080
+            http://192.168.1.102:8080
                 </pre>
                 <p>
                     Cs2 Stats is the application that will allow you to review, compare, and analyze the competitive
                     match statistics of all CS players. You can also advance in the rankings and explore inventories.
                 </p>
                 <p>
-                    This API is <strong>free</strong> to use, by the moment it still being accesible from inside the
+                    This API is <strong>free</strong> to use, by the moment it only being accesible from inside the
                     app, more <strong>comming soon</strong>.
                 </p>
             </div>
@@ -99,7 +99,14 @@
 curl \
 -X POST http://192.168.1.102:8080/user \
 -H 'Content-Type: application/json'
--d '{"login":"my_login",}'
+-d '{
+    additionalParameters: '',
+    avatarUrl: '',
+    platformSlug: '',
+    platformUserHandle: '',
+    platformUserId: 1234,
+    platformUserIdentifier: 12354,
+};'
                 </code></pre>
                 <p>
                     To post users you need to make a POST call to the following url :<br>
@@ -112,25 +119,14 @@ Result example :
 
 {
   query:{
-    offset: 0,
-    limit: 50,
-    house: [
-      "Stark",
-      "Bolton"
-    ],
-  }
-  result: [
-    {
-      id: 1,
-      first_name: "Jon",
-      last_name: "Snow",
-      alive: true,
-      house: "Stark",
-      gender: "m",
-      age: 14,
-      location: "Winterfell"
-    },
-  ]
+    additionalParameters: '',
+    avatarUrl: '',
+    platformSlug: '',
+    platformUserHandle: '',
+    platformUserId: 1234,
+    platformUserIdentifier: 12354,
+}
+  result: 'Done' | 'Error' | 'Dupe'
 }
                 </code></pre>
                 <h4>QUERY PARAMETERS</h4>
@@ -191,7 +187,36 @@ Result example :
 curl \
 -X POST http://192.168.1.102:8080/stats
 -H 'Content-Type: application/json'
--d '{"login":"my_login",}'
+-d '{
+    id_usuario: 1234,
+    timePlayedValue: displayValue,
+    scoreValue: .displayValue,
+    kills: displayValue,
+    deaths: displayValue,
+    kd: displayValue,
+    damage: displayValue,
+    headshosts: displayValue,
+    dominations: displayValue,
+    shotsFired: displayValue,
+    shotsHit: displayValue,
+    shotsAccuracy:displayValue,
+    snipersKilled:displayValue,
+    dominationOverkills: displayValue,
+    dominationRevenges: displayValue,
+    bombsPlanted: displayValue,
+    bombsDefused: displayValue,
+    moneyEarned: displayValue,
+    hostagesRescued: displayValue,
+    mvp: displayValue,
+    wins: displayValue,
+    ties:displayValue,
+    matchesPlayed:displayValue,
+    losses: displayValue,
+    roundsPlayed: displayValue,
+    roundsWon: displayValue,
+    wlPercentage: displayValue,
+    headshotPct: displayValue
+}'
                 </code></pre>
                 <p>
                     To post mainstats you need to make a POST call to the following url :<br>
@@ -204,12 +229,36 @@ Result example :
 
 {
     query:{
-        offset: 0,
-        limit: 50,
-        house: [
-
-        ]
+        id_usuario: 1234,
+        timePlayedValue: '120h',
+        scoreValue: '5000',
+        kills: '750',
+        deaths: '700',
+        kd: '1.07',
+        damage: '100000',
+        headshosts: '300',
+        dominations: '10',
+        shotsFired: '10000',
+        shotsHit: '5000',
+        shotsAccuracy: '50%',
+        snipersKilled: '100',
+        dominationOverkills: '10',
+        dominationRevenges: '10',
+        bombsPlanted: '10',
+        bombsDefused: '10',
+        moneyEarned: '1000000',
+        hostagesRescued: '10',
+        mvp: '10',
+        wins: '10',
+        ties: '10',
+        matchesPlayed: '10',
+        losses: '10',
+        roundsPlayed: '10',
+        roundsWon: '10',
+        wlPercentage: '50%',
+        headshotPct: '50%'
     }
+    result: 'Done' | 'Error' 
 }
                 </code></pre>
                 <h4>QUERY PARAMETERS</h4>
@@ -432,26 +481,43 @@ curl \
                 <pre><code class="json">
 Result example :
 
-{
-  query:{
-    offset: 0,
-    limit: 50,
-    house: [
-      "Stark",
-      "Bolton"
-    ],
-  }
   result: [
-    {
-      id: 1,
-      first_name: "Jon",
-      last_name: "Snow",
-      alive: true,
-      house: "Stark",
-      gender: "m",
-      age: 14,
-      location: "Winterfell"
-    },
+  {
+    "numFila": "1",
+    "id": "76561199067962535",
+    "user": "BoGdAnCaseOpening.com",
+    "avatar": "https://avatars.akamai.steamstatic.com/bd65561e06b8a5883100ceede3a468494d062750_full.jpg",
+    "statsID": 123,
+    "id_usuario": "76561199067962535",
+    "timePlayedValue": "521h",
+    "scoreValue": "346,236",
+    "kills": "46,283",
+    "deaths": "34,556",
+    "kd": "1.34",
+    "damage": "6,898,787",
+    "headshosts": "20,315",
+    "dominations": "1,664",
+    "shotsFired": "467,191",
+    "shotsHit": "132,343",
+    "shotsAccuracy": "28.3%",
+    "snipersKilled": "4,380",
+    "dominationOverkills": "1,729",
+    "dominationRevenges": "341",
+    "bombsPlanted": "776",
+    "bombsDefused": "211",
+    "moneyEarned": "54,773,650",
+    "hostagesRescued": "508",
+    "mvp": "3,221",
+    "wins": "4,841",
+    "ties": "0",
+    "matchesPlayed": "6,207",
+    "losses": "1,366",
+    "roundsPlayed": "27,722",
+    "roundsWon": "4,841",
+    "wlPercentage": "78.0%",
+    "headshotPct": "43.9%",
+    "fecha": "2023-05-11"
+    },,
   ]
 }
                 </code></pre>

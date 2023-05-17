@@ -1,8 +1,9 @@
+import './../vars/ServerBars.js'
 const fetchData = async (userName) => {
     const response = await fetch('https://public-api.tracker.gg/v2/csgo/standard/search?platform=steam&query=' + userName ,{
       method: 'GET',
       headers: {
-          'TRN-Api-Key':'778d5226-abbd-468e-a38f-24ad7011e4cb'
+          'TRN-Api-Key': TrnApiKey
       }
     });
     const data = await response.json();

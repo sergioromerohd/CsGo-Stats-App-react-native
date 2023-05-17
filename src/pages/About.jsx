@@ -1,7 +1,6 @@
 //pagina de about
 import React from 'react';
 import { View, Text, StyleSheet, Pressable, Image, ImageBackground } from 'react-native';
-import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
 
 

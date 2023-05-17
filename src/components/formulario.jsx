@@ -91,12 +91,12 @@ const Formulario = ({ navigation }) => {
                         {userName.length > 0 ?
                             <Pressable onPress={handleButtonPress}>
                                 <LinearGradient colors={['black', 'black', 'black']} style={styles.button}>
-                                    <Text style={{ color: "white" }}>Buscar</Text>
+                                    <Text style={{ color: "white" }}>Search</Text>
                                 </LinearGradient>
                             </Pressable>
                             :
                             <Pressable style={styles.button}>
-                                <Text style={{ color: "white" }}>Buscar</Text>
+                                <Text style={{ color: "white" }}>Search</Text>
                             </Pressable>
                         }
                     </Animated.View>

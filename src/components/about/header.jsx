@@ -1,12 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import Constants from "expo-constants";
 
 const Header = () => {
     return (
         <>
             <View style={styles.header}>
-                <Image source={require('../../Img/logo.png')} style={{ width: 150, height: 70, marginRight: 10, }} />
+                <Image source={require('../../Img/logo.png')} style={{ width: Dimensions.get('window').width / 4, height: '100%', marginHorizontal: 10,resizeMode:"contain" }} />
                 <View>
                     <Text style={styles.text}>{Constants.manifest.name}</Text>
                     <Text style={styles.text}>{Constants.manifest.version}</Text>
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         width: '85%',
-        height: '20%',
+        minHeight:"25%",
         borderWidth: 1,
         borderColor: 'black',
         borderRadius: 5,

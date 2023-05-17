@@ -7,7 +7,6 @@ import AppBanner from "../../Components/AppBaner";
 const Inv = () => {
     return (
         <>
-            <AppBanner />
             <LinearGradient colors={['#ffffff', '#ffffff', '#rgba(0,0,0,0.2)']} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <ImageBackground source={require('../../Img/logo.png')} imageStyle={{ opacity: 0.09, resizeMode: 'contain' }} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }} >
                 </ImageBackground>

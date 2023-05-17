@@ -1,3 +1,4 @@
+import './../vars/ServerBars.js'
 const MainStatsPost = async (stats) => {
 
     const userid=stats.platformInfo.platformUserId
@@ -34,10 +35,11 @@ const MainStatsPost = async (stats) => {
         headshotPct: data.headshotPct.displayValue
     };
 
-    fetch('http://192.168.1.102:8080/stats', {
+    fetch(serverurl+serverport+'/stats', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'password': cs2statsPasword
         },
         body: JSON.stringify(requestBody)
 

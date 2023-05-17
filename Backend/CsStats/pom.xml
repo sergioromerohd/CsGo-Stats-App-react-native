@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>com.CsStats</groupId>
 	<artifactId>Cs2Stats</artifactId>
-	<version>1.0.1-Develop</version>
+	<version>1.0.3-Develop</version>
 	<name>Cs2Stats</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Cs2Stats Backend with jdbc</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

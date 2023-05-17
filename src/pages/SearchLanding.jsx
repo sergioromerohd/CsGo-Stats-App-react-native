@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 
-
+import AppBanner from '../Components/AppBaner';
 import MainStats from './stats/MainStats';
 import Inv from './stats/Inv';
 import Maps from './stats/MapsStats';
@@ -16,6 +16,7 @@ const SearchLanding = (props) => {
     const Tab = createMaterialTopTabNavigator();
     return (
         <>
+            <AppBanner back="yes" Navigator={props.navigation} />
             <Tab.Navigator
                 screenOptions={{
                     tabBarColor: '#000000',

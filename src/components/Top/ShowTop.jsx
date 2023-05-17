@@ -1,5 +1,5 @@
 import react from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient/build/LinearGradient";
 
 import { useState } from "react";
@@ -7,27 +7,22 @@ import { useState } from "react";
 
 const ShowTop = (items) => {
     const [data, setData] = useState(items.item);
-        return (
+    const [value, setValue] = useState(
+        items.orderby===0 ? data.kd : items.orderby===1 ? data.wlPercentage : data.shotsAccuracy
+    );
+    console.log(data);
+
+
+   
+
+    return (
         <>
             {data.numFila == 1 ?
-                <LinearGradient colors={['#FEDB37', '#9f7928', '#8A6E2F']}
-                end={{ x: 1, y: 4 }}
-                start={{ x: 0.1, y: 0.5 }}
-                style={styles.container1}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text Style={styles.numero}>{data.numFila}</Text>
-                        <Image
-                            source={{ uri: data.avatar }}
-                            style={{ width: 50, height: 50, borderRadius: 50, marginHorizontal: 5 }}
-                        />
-                    </View>
-                    <View Style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-                        <Text style={styles.text}>{data.user}</Text>
-                        <Text style={styles.value}>{data.timePlayedValue}</Text>
-                    </View>
-                </LinearGradient>
-                : data.numFila == 2 ?
-                    <View style={styles.container2}>
+                <Pressable onPress={() => items.navigation.navigate('SearchLanding', { platformUserId: data.id })}>
+                    <LinearGradient colors={['#FEDB37', '#9f7928', '#8A6E2F']}
+                        end={{ x: 1, y: 4 }}
+                        start={{ x: 0.1, y: 0.5 }}
+                        style={styles.container1}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Text Style={styles.numero}>{data.numFila}</Text>
                             <Image
@@ -37,37 +32,58 @@ const ShowTop = (items) => {
                         </View>
                         <View Style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
                             <Text style={styles.text}>{data.user}</Text>
-                            <Text style={styles.value}>{data.timePlayedValue}</Text>
+                            <Text style={styles.value}>{value}</Text>
                         </View>
-                    </View>
+                    </LinearGradient>
+                </Pressable>
+                : data.numFila == 2 ?
+                    <Pressable onPress={() => items.navigation.navigate('SearchLanding', { platformUserId: data.id })}>
+                        <View style={styles.container2}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Text Style={styles.numero}>{data.numFila}</Text>
+                                <Image
+                                    source={{ uri: data.avatar }}
+                                    style={{ width: 50, height: 50, borderRadius: 50, marginHorizontal: 5 }}
+                                />
+                            </View>
+                            <View Style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+                                <Text style={styles.text}>{data.user}</Text>
+                                <Text style={styles.value}>{value}</Text>
+                            </View>
+                        </View>
+                    </Pressable>
                     : data.numFila == 3 ?
-                        <View style={styles.container3}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Text Style={styles.numero}>{data.numFila}</Text>
-                                <Image
-                                    source={{ uri: data.avatar }}
-                                    style={{ width: 50, height: 50, borderRadius: 50, marginHorizontal: 5 }}
-                                />
+                        <Pressable onPress={() => items.navigation.navigate('SearchLanding', { platformUserId: data.id })}>
+                            <View style={styles.container3}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text Style={styles.numero}>{data.numFila}</Text>
+                                    <Image
+                                        source={{ uri: data.avatar }}
+                                        style={{ width: 50, height: 50, borderRadius: 50, marginHorizontal: 5 }}
+                                    />
+                                </View>
+                                <View Style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+                                    <Text style={styles.text}>{data.user}</Text>
+                                    <Text style={styles.value}>{value}</Text>
+                                </View>
                             </View>
-                            <View Style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-                                <Text style={styles.text}>{data.user}</Text>
-                                <Text style={styles.value}>{data.timePlayedValue}</Text>
-                            </View>
-                        </View>
+                        </Pressable>
                         :
-                        <View style={styles.container}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Text Style={styles.numero}>{data.numFila}</Text>
-                                <Image
-                                    source={{ uri: data.avatar }}
-                                    style={{ width: 50, height: 50, borderRadius: 50, marginHorizontal: 5 }}
-                                />
+                        <Pressable onPress={() => items.navigation.navigate('SearchLanding', { platformUserId: data.id })}>
+                            <View style={styles.container}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Text Style={styles.numero}>{data.numFila}</Text>
+                                    <Image
+                                        source={{ uri: data.avatar }}
+                                        style={{ width: 50, height: 50, borderRadius: 50, marginHorizontal: 5 }}
+                                    />
+                                </View>
+                                <View Style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+                                    <Text style={styles.text}>{data.user}</Text>
+                                    <Text style={styles.value}>{value}</Text>
+                                </View>
                             </View>
-                            <View Style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-                                <Text style={styles.text}>{data.user}</Text>
-                                <Text style={styles.value}>{data.timePlayedValue}</Text>
-                            </View>
-                        </View>
+                        </Pressable>
             }
         </>
     );
@@ -87,7 +103,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     container1: {
-        marginTop: 25,
         flex: 1,
         flexDirection: 'row',
         marginBottom: 3,

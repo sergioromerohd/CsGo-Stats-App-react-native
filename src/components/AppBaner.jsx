@@ -1,16 +1,25 @@
 //baner superior de la app con el logo
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable} from 'react-native';
 import Constants from 'expo-constants';
+import { AntDesign } from '@expo/vector-icons';
 
-const AppBanner = () => {
+const AppBanner = (props) => {
     return (
         <>
+        
             <View style={styles.container}>
+                {props.back?
+                <Pressable onPress={() => props.Navigator.goBack()}>
+                    <AntDesign name="arrowleft" size={24} color="white" />
+                </Pressable>
+                :
+                <></>
+                }
                 <Image
                     style={styles.image}
                     source={
-                        require('../Img/logo.png')
+                        require('../Img/logo2.png')
                     }
                 />
                 <Text style={styles.text}>Cs:Go-Stats</Text>

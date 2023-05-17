@@ -1,3 +1,4 @@
+import './../vars/ServerBars.js'
 const UserPost = async (userinfo) => {
 
     const requestBody = {
@@ -8,10 +9,11 @@ const UserPost = async (userinfo) => {
         platformUserId: userinfo.platformUserId,
         platformUserIdentifier: userinfo.platformUserIdentifier,
     };
-    fetch('http://192.168.1.102:8080/user', {
+    fetch(serverurl+serverport+'/user', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'password': cs2statsPasword
         },
         body: JSON.stringify(requestBody)
 
