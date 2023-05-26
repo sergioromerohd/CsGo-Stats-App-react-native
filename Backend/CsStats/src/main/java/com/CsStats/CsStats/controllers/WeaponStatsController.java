@@ -14,22 +14,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.CsStats.CsStats.DTO.StatsMapDTO;
-import com.CsStats.CsStats.DTO.StatsMapUsuarioDTO;
-import com.CsStats.CsStats.Mapper.MapUsuarioRowMapper;
+import com.CsStats.CsStats.DTO.StatsWeaponDTO;
+import com.CsStats.CsStats.DTO.StatsWeaponUsuarioDTO;
+import com.CsStats.CsStats.Mapper.WeaponUsuarioRowMapper;
 import com.CsStats.CsStats.vars.vars;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-public class MapStatsController {
+public class WeaponStatsController{
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @PostMapping("/stats/postmap")
-    public String PostMapStats(@RequestBody String request, HttpServletRequest request2) {
+    @PostMapping("/stats/postweapon")
+    public String PostWeaponStats(@RequestBody String request, HttpServletRequest request2) {
         ObjectMapper om = new ObjectMapper();
 
         Enumeration<String> headerNames = request2.getHeaderNames();
@@ -38,15 +38,17 @@ public class MapStatsController {
             String headerValue = request2.getHeader(headerName);
             if (headerName.equals("password") && headerValue.equals(vars.getPassword)) {
                 try {
-                    StatsMapDTO stats = om.readValue(request, StatsMapDTO.class);
+                    StatsWeaponDTO stats = om.readValue(request, StatsWeaponDTO.class);
 
                     String sql1 = String.format(
-                            "INSERT INTO mapstats(id_usuario,mapa,img,rounds,wins) values ('%s','%s','%s','%s','%s')",
+                            "INSERT INTO `weaponstats` (`id_usuario`, `weapon`, `img`, `kills`, `shotsFired`, `shotsHit`, `shotsAccuracy`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');",
                             stats.getId_usuario(),
-                            stats.getMapa(),
+                            stats.getWeapon(),
                             stats.getImg(),
-                            stats.getRounds(),
-                            stats.getWins());
+                            stats.getKills(),
+                            stats.getShotsFired(),
+                            stats.getShotsHit(),    
+                            stats.getShotsAccuracy());
                     jdbcTemplate.execute(sql1);
                     return "Done";
                 } catch (Exception e) {
@@ -58,11 +60,11 @@ public class MapStatsController {
         return "401,No autorizado";
     }
 
-    @GetMapping("/stats/getmap/{idUsuario}")
-    public ResponseEntity<List<StatsMapUsuarioDTO>> GetMapStats(@PathVariable("idUsuario") String idUsuario)
+    @GetMapping("/stats/getweapon/{idUsuario}")
+    public ResponseEntity<List<StatsWeaponUsuarioDTO>> GetWeaponUsuario(@PathVariable("idUsuario") String request)
             throws JsonProcessingException {
-        String sql = "SELECT * FROM vista_ultimos_2_mapas_usuario Where id_usuario = " + idUsuario;
-        List<StatsMapUsuarioDTO> stats = jdbcTemplate.query(sql, new MapUsuarioRowMapper());
+        String sql = "SELECT * FROM vista_ultimos_2_armas_usuario Where id_usuario = " + request;
+        List<StatsWeaponUsuarioDTO> stats = jdbcTemplate.query(sql, new WeaponUsuarioRowMapper());
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(stats);
     }
 }

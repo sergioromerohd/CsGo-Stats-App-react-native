@@ -18,6 +18,7 @@ const Main = ({ navigation }) => {
         <>
             <AppBanner />
                     <Tab.Navigator
+                        scrollEnabled={true}
                         screenOptions={{
                             tabBarColor: '#000000',
                             tabBarStyle: { backgroundColor: '#000000', marginBottom: Constants.statusBarHeight - 12 },

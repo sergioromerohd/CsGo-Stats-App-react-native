@@ -10,14 +10,13 @@ const ShowTop = (items) => {
     const [value, setValue] = useState(
         items.orderby===0 ? data.kd : items.orderby===1 ? data.wlPercentage : data.shotsAccuracy
     );
-    console.log(data);
-
-
-   
-
+    const search = items.search;
+    
     return (
         <>
-            {data.numFila == 1 ?
+            {search == null || data.user.toLowerCase().includes(search.toLowerCase()) ?
+
+            data.numFila == 1 ?
                 <Pressable onPress={() => items.navigation.navigate('SearchLanding', { platformUserId: data.id })}>
                     <LinearGradient colors={['#FEDB37', '#9f7928', '#8A6E2F']}
                         end={{ x: 1, y: 4 }}
@@ -84,6 +83,7 @@ const ShowTop = (items) => {
                                 </View>
                             </View>
                         </Pressable>
+                : null
             }
         </>
     );

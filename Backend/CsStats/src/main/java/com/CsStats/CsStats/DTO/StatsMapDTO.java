@@ -3,11 +3,11 @@ package com.CsStats.CsStats.DTO;
 
 public class StatsMapDTO {
 
-        public String id_usuario;
-        public String mapa;
-        public String img;
-        public String rounds;
-        public String wins;
+        protected String id_usuario;
+        protected String mapa;
+        protected String img;
+        protected String rounds;
+        protected String wins;
 
         public StatsMapDTO() {
         }

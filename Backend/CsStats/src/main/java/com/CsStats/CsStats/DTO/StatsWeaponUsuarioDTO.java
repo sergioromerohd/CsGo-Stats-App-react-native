@@ -31,6 +31,37 @@ public class StatsWeaponUsuarioDTO {
 
         }
 
+        public String getNumFila() {
+                return numFila;
+        }
+
+        public void setNumFila(String numFila) {
+                this.numFila = numFila;
+        }
+
+        public String getId() {
+                return id;
+        }
+
+        public void setId(String id) {
+                this.id = id;
+        }
+
+        public String getUser() {
+                return user;
+        }
+
+        public void setUser(String user) {
+                this.user = user;
+        }
+
+        public String getAvatar() {
+                return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+                this.avatar = avatar;
+        }
 
         public String getId_usuario() {
                 return id_usuario;
@@ -86,6 +117,14 @@ public class StatsWeaponUsuarioDTO {
 
         public void setShotsAccuracy(String shotsAccuracy) {
                 this.shotsAccuracy = shotsAccuracy;
+        }
+
+        public String getFecha() {
+                return fecha;
+        }
+
+        public void setFecha(String fecha) {
+                this.fecha = fecha;
         }
 
         @Override
