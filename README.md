@@ -18,6 +18,10 @@
   5.Loading screen
 
   6.User info (not showing)
+  
+  7.Weapon Stats (chart and item selector)
+  
+  8.Map Stats (chart and item selector)
 
 Backend
 
