@@ -17,53 +17,53 @@ const Main = ({ navigation }) => {
     return (
         <>
             <AppBanner />
-                    <Tab.Navigator
-                        scrollEnabled={true}
-                        screenOptions={{
-                            tabBarColor: '#000000',
-                            tabBarStyle: { backgroundColor: '#000000', marginBottom: Constants.statusBarHeight - 12 },
-                            tabBarActiveTintColor: '#ffffff',
-                            tabBarInactiveTintColor: '#ffffff',
+            <Tab.Navigator
+                scrollEnabled={true}
+                screenOptions={{
+                    tabBarColor: '#000000',
+                    tabBarStyle: { backgroundColor: '#000000', marginBottom: Constants.statusBarHeight - 12 },
+                    tabBarActiveTintColor: '#ffffff',
+                    tabBarInactiveTintColor: '#ffffff',
 
-                        }}
-                        initialRouteName="UserSearch"
-                        tabBarPosition='bottom'
-                    >
-                        <Tab.Screen name="TopUsers" component={TopUsers}
-                            options={{
-                                tabBarIndicatorStyle: { backgroundColor: 'red' },
-                                tabBarLabel: 'Top Users',
-                                tabBarPressColor: 'darkred',
-                                tabBarActiveTintColor: 'grey',
-                                tabBarIcon: ({ color }) => (
-                                    <Ionicons name="ios-people" color={color} size={26} />
-                                ),
+                }}
+                initialRouteName="UserSearch"
+                tabBarPosition='bottom'
+            >
+                <Tab.Screen name="TopUsers" component={TopUsers}
+                    options={{
+                        tabBarIndicatorStyle: { backgroundColor: 'red' },
+                        tabBarLabel: 'Top Users',
+                        tabBarPressColor: 'darkred',
+                        tabBarActiveTintColor: 'grey',
+                        tabBarIcon: ({ color }) => (
+                            <Ionicons name="ios-people" color={color} size={26} />
+                        ),
 
-                            }}
-                        />
-                        <Tab.Screen name="UserSearch" component={UserSearch}
-                            options={{
-                                tabBarIndicatorStyle: { backgroundColor: 'red' },
-                                tabBarLabel: 'Search',
-                                tabBarPressColor: 'darkred',
-                                tabBarActiveTintColor: 'grey',
-                                tabBarIcon: ({ color }) => (
-                                    <Ionicons name="ios-search" color={color} size={26} />
-                                ),
-                            }}
-                        />
-                        <Tab.Screen name="About" component={About}
-                            options={{
-                                tabBarIndicatorStyle: { backgroundColor: 'red' },
-                                tabBarPressColor: 'darkred',
-                                tabBarLabel: 'About',
-                                tabBarActiveTintColor: 'grey',
-                                tabBarIcon: ({ color }) => (
-                                    <Ionicons name="ios-information-circle" color={color} size={26} />
-                                ),
-                            }}
-                        />
-                    </Tab.Navigator>
+                    }}
+                />
+                <Tab.Screen name="UserSearch" component={UserSearch}
+                    options={{
+                        tabBarIndicatorStyle: { backgroundColor: 'red' },
+                        tabBarLabel: 'Search',
+                        tabBarPressColor: 'darkred',
+                        tabBarActiveTintColor: 'grey',
+                        tabBarIcon: ({ color }) => (
+                            <Ionicons name="ios-search" color={color} size={26} />
+                        ),
+                    }}
+                />
+                <Tab.Screen name="About" component={About}
+                    options={{
+                        tabBarIndicatorStyle: { backgroundColor: 'red' },
+                        tabBarPressColor: 'darkred',
+                        tabBarLabel: 'About',
+                        tabBarActiveTintColor: 'grey',
+                        tabBarIcon: ({ color }) => (
+                            <Ionicons name="ios-information-circle" color={color} size={26} />
+                        ),
+                    }}
+                />
+            </Tab.Navigator>
         </>
     );
 

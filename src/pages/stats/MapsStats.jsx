@@ -15,7 +15,6 @@ import ChartMap from "../../Components/map/chartMap";
 const Maps = (props) => {
 
     const [platformUserId, setPlatformUserId] = useState(props.route?.params?.data?.data?.data[0]?.platformUserId ? props.route.params.data.data.data[0].platformUserId : props.route?.params?.platformUserId ? props.route.params.platformUserId : 'null');
-
     const [map, setMap] = useState(null);
     const [map2, setMap2] = useState(0);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -25,10 +24,8 @@ const Maps = (props) => {
     if (map) {
         datosAgrupados = map.reduce((agrupados, map) => {
             const { numFila, ...restoDatos } = map;
-
             // Verificar si el número de fila ya existe en el objeto agrupados
             const grupoExistente = agrupados.find(grupo => grupo.numFila === numFila);
-
             if (grupoExistente) {
                 // Agregar el objeto al arreglo existente
                 grupoExistente.data.push(restoDatos);
@@ -39,7 +36,6 @@ const Maps = (props) => {
                     data: [restoDatos]
                 });
             }
-
             return agrupados;
         }, []);
     }
@@ -108,7 +104,7 @@ const Maps = (props) => {
                                 layout={'default'}
                                 layoutCardOffset={10}
                             />
-                        
+
                         </View>
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <Card
@@ -118,7 +114,7 @@ const Maps = (props) => {
                                 }}>
                                 <Text style={styles.card2}>Click to compare</Text>
                                 <View style={{ paddingVertical: "2%", justifyContent: "center" }}>
-                                    <View style={{ justifyContent: "space-around", flex:1}}>
+                                    <View style={{ justifyContent: "space-around", flex: 1 }}>
                                         <View style={styles.infoContainer}>
                                             <Text style={styles.infoText}>Wins</Text>
                                             <Text style={styles.infoText}>{datosAgrupados[0].data[activeIndex].wins}</Text>
@@ -157,15 +153,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: "3%",
         marginVertical: "3%"
     },
-    card2:{
-        fontSize: 9, 
-        textAlign: "right", 
-        marginRight: "2%", 
-        textDecorationLine: "underline", 
+    card2: {
+        fontSize: 9,
+        textAlign: "right",
+        marginRight: "2%",
+        textDecorationLine: "underline",
         opacity: 0.4
     },
     infoContainer: {
-        flexDirection: "row", 
+        flexDirection: "row",
         justifyContent: "space-between",
         marginTop: "3%"
     },

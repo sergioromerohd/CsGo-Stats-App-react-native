@@ -1,34 +1,62 @@
 import react from "react";
-import { ImageBackground, Image, View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity } from "react-native";
-import { useEffect, useState } from "react";
+import { ImageBackground, Image, View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Pressable } from "react-native";
+import { useEffect, useState, useRef } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import LottieView from 'lottie-react-native';
 import Carousel from 'react-native-snap-carousel';
+import { AntDesign } from '@expo/vector-icons';
 import { Card } from 'react-native-ui-lib';
 
 
 
 import fetchData from '../../api/WeaponApi';
 import WeaponStatsPost from '../../api/WeaponStatsPost';
+import GetWeaponStats from "../../api/GetWeaponStats";
+import CardItems from "../../Components/Weapon/CardItems";
+import ChartWeapon from "../../Components/Weapon/chartWeapon";
 
 const Weapon = (props) => {
 
     const [platformUserId, setPlatformUserId] = useState(props.route?.params?.data?.data?.data[0]?.platformUserId ? props.route.params.data.data.data[0].platformUserId : props.route?.params?.platformUserId ? props.route.params.platformUserId : 'null');
-    const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState(null);
     const [data2, setData2] = useState(0);
     const [activeIndex, setActiveIndex] = useState(0);
     const [compareWeapon, setCompareWeapon] = useState(null);
 
+    const carouselRef = useRef(null);
+    let datosAgrupados = [];
+    if (data) {
+        datosAgrupados = data.reduce((agrupados, data) => {
+            const { numFila, ...restoDatos } = data;
+
+            // Verificar si el número de fila ya existe en el objeto agrupados
+            const grupoExistente = agrupados.find(grupo => grupo.numFila === numFila);
+
+            if (grupoExistente) {
+                // Agregar el objeto al arreglo existente
+                grupoExistente.data.push(restoDatos);
+            } else {
+                // Crear un nuevo grupo con el arreglo de objetos
+                agrupados.push({
+                    numFila: numFila,
+                    data: [restoDatos]
+                });
+            }
+
+            return agrupados;
+        }, []);
+    }
+
     const fetchDataOnce = async () => {
         if (data2 === 0) {
             fetchData(platformUserId).then((data) => {
-                setData(data);
-                setLoading(false);
                 for (let i = 0; i < data.length; i++) {
                     WeaponStatsPost(data[i], platformUserId);
                 }
-                setData2(1);
+                GetWeaponStats(platformUserId).then((data2) => {
+                    setData(data2);
+                    setData2(1);
+                });
             });
         }
 
@@ -44,18 +72,24 @@ const Weapon = (props) => {
                 style={styles.weaponContainer}
                 onPress={() => setActiveIndex(index)}
             >
+                <Pressable style={{ justifyContent: "center", paddingHorizontal: "5%" }} onPress={() => { carouselRef.current.snapToPrev() }}>
+                    <AntDesign name="arrowleft" size={24} color="white" />
+                </Pressable>
                 <Image
-                    source={{ uri: item.metadata.imageUrl }}
+                    source={{ uri: item.img }}
                     style={styles.weaponImage}
                 />
-                <Text style={styles.weaponName}>{item.metadata.name}</Text>
+                <Text style={styles.weaponName}>{item.weapon}</Text>
+                <Pressable style={{ justifyContent: "center", paddingHorizontal: "5%" }} onPress={() => { carouselRef.current.snapToPrev() }}>
+                    <AntDesign name="arrowright" size={24} color="white" />
+                </Pressable>
             </TouchableOpacity>
         );
     };
 
     return (
         <>
-            {!data ? <LinearGradient colors={['#ffffff', '#ffffff', '#rgba(0,0,0,0.2)']} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            {data==null ? <LinearGradient colors={['#ffffff', '#ffffff', '#rgba(0,0,0,0.2)']} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <ImageBackground source={require('../../Img/logo.png')} imageStyle={{ opacity: 0.08, resizeMode: 'contain' }}>
                     <LottieView source={require('../../Img/comdomSpin.json')} style={{
                         width: 125, height: 125,
@@ -67,10 +101,10 @@ const Weapon = (props) => {
                     <ImageBackground source={require('../../Img/logo.png')} imageStyle={{ opacity: 0.09, resizeMode: 'contain' }} style={{ flex: 1, alignItems: 'center', width: '100%' }} >
                         <View style={{ width: '90%', backgroundColor: "black", justifyContent: "center", alignItems: "center", borderRadius: 25, marginVertical: "2%" }}>
                             <Carousel
-                                data={data}
-
+                                data={datosAgrupados[0].data}
                                 firstItem={activeIndex}
-                                renderItem={renderItem}                         
+                                renderItem={renderItem}
+                                ref={carouselRef}
                                 sliderWidth={Dimensions.get('window').width - 50}
                                 sliderHeight={10}
                                 onSnapToItem={(index) => setActiveIndex(index)}
@@ -79,15 +113,13 @@ const Weapon = (props) => {
                                 layoutCardOffset={150}
                             />
                         </View>
-                        <Text style={{ fontSize: 24, fontWeight: 'bold', marginVertical: "2%" }}>{data[activeIndex].metadata.name}</Text>
-
                         <ScrollView
                             showsVerticalScrollIndicator={false}
-                            style={{ width: '85%', flex: 1, }}
+                            style={{ flex: 1 }}
                         >
 
                             <Card
-                                style={{ backgroundColor: "rgba(255,255,355,1)", borderRadius: 25, borderWidth: 1, borderColor: "black" }}
+                                style={{ backgroundColor: "rgba(255,255,355,1)", borderRadius: 25, borderWidth: 1, borderColor: "black", marginVertical: "2%" }}
                                 onPress={() => {
                                     setCompareWeapon(activeIndex);
                                 }}>
@@ -98,63 +130,21 @@ const Weapon = (props) => {
                                             <Text style={styles.subtittle}>stats</Text>
                                         </View>
                                         <View style={{ alignItems: 'flex-end', flex: 1 }}>
-                                            <Text style={[styles.subtittle, { textAlign: 'right' }]}>{data[activeIndex].metadata.name}</Text>
+                                            <Text style={[styles.subtittle, { textAlign: 'right' }]}>{datosAgrupados[0].data[activeIndex].weapon}</Text>
                                         </View>
                                         {compareWeapon !== null ?
                                             <View style={{ alignItems: 'flex-end' }}>
-                                                <Text style={styles.subtittle}>/{data[compareWeapon].metadata.name}</Text>
+                                                <Text style={styles.subtittle}>/{datosAgrupados[0].data[compareWeapon].weapon}</Text>
                                             </View> : null}
 
                                     </View>
-                                    {Object.keys(data[activeIndex].stats).map((key, index) => (
-                                        <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20 }}>
-                                            <View style={{ minWidth: '50%' }}>
-                                                <Text style={styles.subtittle}>{key}</Text>
-                                            </View>
-                                            <View style={{ alignItems: 'flex-end', flex: 1 }}>
-                                                <Text style={{ fontSize: 20, color: 'white', paddingHorizontal: 5, marginVertical: 5, textShadowColor: 'black', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 2, textAlign: 'right' }}>{(activeIndex >= 0) && data[activeIndex].stats[key].displayValue}</Text>
-                                            </View>
-                                            {compareWeapon !== null ?
-                                                <View key={index} style={{}}>
-
-                                                    {data[compareWeapon].stats[key].value > data[activeIndex].stats[key].value ?
-                                                        <Text style={{ fontSize: 18, color: '#228B22', marginVertical: 5, textShadowColor: 'black', textShadowOffset: { width: 1.2, height: 1.2 }, textShadowRadius: 1, textAlign: 'left' }}>/{(activeIndex >= 0) && data[compareWeapon].stats[key].displayValue}</Text>
-                                                        :
-                                                        <Text style={{ fontSize: 18, color: 'rgb(40,40,40)', marginVertical: 5, textShadowColor: 'red', textShadowOffset: { width: 0.8, height: 0.8 }, textShadowRadius: 1, textAlign: 'left' }}>/{(activeIndex >= 0) && data[compareWeapon].stats[key].displayValue}</Text>
-                                                    }
-
-                                                </View>
-                                                : null
-                                            }
-                                        </View>
-                                    ))}
+                                    <CardItems tittle={"Kills"} active={datosAgrupados[0].data[activeIndex].kills} compare={compareWeapon !== null ? datosAgrupados[0].data[compareWeapon].kills : null} />
+                                    <CardItems tittle={"shostFired"} active={datosAgrupados[0].data[activeIndex].shotsFired} compare={compareWeapon !== null ? datosAgrupados[0].data[compareWeapon].shotsFired : null} />
+                                    <CardItems tittle={"shostHit"} active={datosAgrupados[0].data[activeIndex].shotsHit} compare={compareWeapon !== null ? datosAgrupados[0].data[compareWeapon].shotsHit : null} />
+                                    <CardItems tittle={"shostAccuracy"} active={datosAgrupados[0].data[activeIndex].shotsAccuracy} compare={compareWeapon !== null ? datosAgrupados[0].data[compareWeapon].shotsAccuracy : null} />
                                 </View>
                             </Card>
-                            {
-                                /* compareWeapon !== null ?
-                                     <>
-                                         <Text style={{ fontSize: 24, fontWeight: 'bold', marginVertical: "4%", textAlign: "center" }}>Compare with: {data[compareWeapon].metadata.name}</Text>
-                                         <Card center
-                                             style={{ backgroundColor: "rgba(255,255,355,1)", borderRadius: 25, borderWidth: 1, borderColor: "black", paddingVertical: 15 }}>
-                                             <View style={{ paddingVertical: "5%" }}>
-                                                 {Object.keys(data[compareWeapon].stats).map((key, index) => (
-                                                     <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20 }}>
-                                                         <View>
-                                                             <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'left', color: "black", marginVertical: 5, textShadowColor: 'gray', textShadowOffset: { height: 1 }, textShadowRadius: 1 }}>{key}</Text>
-                                                         </View>
-                                                         <View style={{ alignItems: 'center', borderRadius: 5 }}>
-                                                             {data[compareWeapon].stats[key].value > data[activeIndex].stats[key].value ?
-                                                                 <Text style={{ fontSize: 20, color: '#228B22', paddingHorizontal: 20, marginVertical: 5, textShadowColor: 'black', textShadowOffset: { width: 1.2, height: 1.2 }, textShadowRadius: 1, textAlign: 'right' }}>{(activeIndex >= 0) && data[compareWeapon].stats[key].displayValue}</Text>
-                                                                 :
-                                                                 <Text style={{ fontSize: 20, color: 'rgb(40,40,40)', paddingHorizontal: 20, marginVertical: 5, textShadowColor: 'red', textShadowOffset: { width: 0.8, height: 0.8 }, textShadowRadius: 1, textAlign: 'right' }}>{(activeIndex >= 0) && data[compareWeapon].stats[key].displayValue}</Text>
-                                                             }
-                                                         </View>
-                                                     </View>
-                                                 ))}
-                                             </View>
-                                         </Card></> : null*/
-
-                            }
+                            <ChartWeapon datos={datosAgrupados} activeIndex={activeIndex} />
 
                         </ScrollView>
                     </ImageBackground>
@@ -170,6 +160,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
+
         marginHorizontal: 10,
     },
     weaponImage: {

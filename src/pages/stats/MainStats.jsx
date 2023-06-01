@@ -1,6 +1,6 @@
 //pagina main Tras el landig
 import React, { useState, useEffect } from 'react';
-import { StyleSheet,  ScrollView, ImageBackground, Alert} from 'react-native';
+import { StyleSheet,  ScrollView, ImageBackground, Alert, Dimensions} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import fetchData from '../../api/MainStatsApi';
@@ -35,6 +35,7 @@ const MainStats = (props) => {
         }
 
     };
+    console.log(data);
     useEffect(() => {
         fetchDataOnce();
     }, []);
@@ -69,13 +70,46 @@ const MainStats = (props) => {
                         <ImageBackground source={require('../../Img/logo.png')} imageStyle={{ opacity: 0.09, resizeMode: 'contain' }} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }} >
                             <ScrollView style={styles.container}>
                                 <UserBaner name={data.platformInfo.platformUserHandle} avatar={data.platformInfo.avatarUrl} hours={data.segments[0].stats.timePlayed.displayValue}/>
-                                <Card center onPress={() => setIsVisible(true)} style={{width:'80%', marginHorizontal:"10%"}} >
+                                <Card center onPress={() => setIsVisible(true)} style={{width:'80%', marginHorizontal:"10%", marginVertical:Dimensions.get('window').height*0.02, borderWidth:1, borderColor:'#000000'}} >
+                                    <View row center style={{ padding:10, justifyContent:'space-between',width:'100%' }}>
+                                        <View >
+                                            <Text text60L color="#000000" style={{ fontWeight: "bold" }}>Time</Text>
+                                            <Text text70L color="#000000" style={{ }}>{data.segments[0].stats.timePlayed.displayValue}</Text>
+                                        </View>
+                                        <View >
+                                            <Text text60L color="#000000" style={{ fontWeight: "bold" }}>Heads %</Text>
+                                            <Text text70L color="#000000" style={{ }}>{data.segments[0].stats.headshotPct.displayValue}</Text>
+                                        </View>
+                                        <View >
+                                            <Text text60L color="#000000" style={{ fontWeight: "bold" }}>MVP</Text>
+                                            <Text text70L color="#000000" style={{ }}>{data.segments[0].stats.mvp.displayValue}</Text>
+                                        </View>
+                                    </View>
+                                </Card>
+                                <Card center onPress={() => setIsVisible(true)} style={{width:'80%', marginHorizontal:"10%", borderWidth:1, borderColor:'#000000'}} >
                                     <Chart splits="2" value1={data.segments[0].stats.wins.value} name1="wins" color1="lightgreen"
                                         value2={data.segments[0].stats.losses.value} name2="loose" color2="red" />
                                 </Card>
-                                <Modal animationType="slide" transparent={true} containerStyle={{ backgroundColor: 'rgba(0,0,0,0.5)' }} 
-                                 visible={isVisible} onBackgroundPress={() => setIsVisible(false)} onRequestClose={() => setIsVisible(false)} title="titulo" >
-                                </Modal>
+                                <Card center onPress={() => setIsVisible(true)} style={{width:'80%', marginHorizontal:"10%", marginVertical:Dimensions.get('window').height*0.02, borderWidth:1, borderColor:'#000000'}} >
+                                    <View row center style={{ padding:10, justifyContent:'space-between',width:'100%' }}>
+                                        <View >
+                                            <Text text60L color="#000000" style={{ fontWeight: "bold",textAlign:'center' }}>Damage</Text>
+                                            <Text text70L color="#000000" style={{textAlign:'center' }}>{data.segments[0].stats.damage.displayValue}</Text>
+                                        </View>
+                                        <View >
+                                            <Text text60L color="#000000" style={{ fontWeight: "bold",textAlign:'center'  }}>Money</Text>
+                                            <Text text70L color="#000000" style={{textAlign:'center'  }}>{data.segments[0].stats.moneyEarned.displayValue}</Text>
+                                        </View>
+                                        <View >
+                                            <Text text60L color="#000000" style={{ fontWeight: "bold" ,textAlign:'center' }}>Snipers kills</Text>
+                                            <Text text70L color="#000000" style={{ textAlign:'center' }}>{data.segments[0].stats.snipersKilled.displayValue}</Text>
+                                        </View>
+                                    </View>
+                                </Card>
+                                <Card center onPress={() => setIsVisible(true)} style={{width:'80%', marginHorizontal:"10%", borderWidth:1, borderColor:'#000000'}} >
+                                    <Chart splits="2" value1={data.segments[0].stats.kills.value} name1="kills" color1="lightblue"
+                                        value2={data.segments[0].stats.deaths.value} name2="deaths" color2="gray" /> 
+                                </Card>
                             </ScrollView>
                         </ImageBackground>
                     </LinearGradient>

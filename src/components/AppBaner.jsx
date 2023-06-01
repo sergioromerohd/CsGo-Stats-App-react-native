@@ -22,7 +22,7 @@ const AppBanner = (props) => {
                         require('../Img/logo2.png')
                     }
                 />
-                <Text style={styles.text}>Cs:Go-Stats</Text>
+                <Text style={styles.text}>Cs2Stats</Text>
             </View>
         </>
     );

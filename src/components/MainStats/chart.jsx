@@ -23,21 +23,21 @@ const Chart = (props) => {
             value: parseInt(value1),
             color: color1,
             legendFontColor: "#7F7F7F",
-            legendFontSize: 15,
+            legendFontSize: 13,
         },
         {
             name: name2,
             value: parseInt(value2),
             color: color2,
             legendFontColor: "#7F7F7F",
-            legendFontSize: 15,
+            legendFontSize: 13,
         },
         {
             name: name3,
             value: parseInt(value3),
             color: color3,
             legendFontColor: "#7F7F7F",
-            legendFontSize: 15,
+            legendFontSize: 13,
         }
     ]:props.splits === "2" ? [
         {
@@ -45,14 +45,14 @@ const Chart = (props) => {
             value: parseInt(value1),
             color: color1,
             legendFontColor: "#7F7F7F",
-            legendFontSize: 15,
+            legendFontSize: 13,
         },
         {
             name: name2,
             value: parseInt(value2),
             color: color2,
             legendFontColor: "#7F7F7F",
-            legendFontSize: 15,
+            legendFontSize: 13,
         }
     ]:[
         {
@@ -60,7 +60,7 @@ const Chart = (props) => {
             value: parseInt(value1),
             color: color1,
             legendFontColor: "#7F7F7F",
-            legendFontSize: 15,
+            legendFontSize: 13,
         }
     ];
 
@@ -69,15 +69,13 @@ const Chart = (props) => {
             <PieChart
                 data={chartdata}
                 width={Dimensions.get("window").width -100}
-                height={150}
+                height={Dimensions.get("window").height / 5}
                 chartConfig={chartConfig}
                 accessor={"value"}
-                paddingLeft={"15"}
                 center={[0, 0]}
                 hasLegend={true}
                 absolute
                 style={{
-                    marginVertical: 8,
                     borderRadius: 16,
                     borderColor: "#000000",
                     shadowColor: "gray",
